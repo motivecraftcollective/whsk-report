@@ -1,39 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WHSK Creator Network Report — Motivecraft Collective</title>
+  <title>WHSK Launch Dashboard — Motivecraft Collective</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg: #0a0a0a;
       --bg-raised: #111111;
-      --bg-card: #161616;
+      --bg-card: #141414;
       --bg-card-hover: #1a1a1a;
-      --fg: #ededed;
-      --muted: #8b8b8b;
-      --muted-light: #666666;
-      --line: rgba(237, 237, 237, 0.10);
-      --line-strong: rgba(237, 237, 237, 0.18);
+      --fg: #f0f0f0;
+      --fg-secondary: #b0b0b0;
+      --muted: #777777;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.14);
       --accent: #D5E867;
-      --accent-dim: rgba(213, 232, 103, 0.15);
+      --accent-dim: rgba(213, 232, 103, 0.12);
       --accent-ink: #0a0a0a;
-      --whsk-yellow: #FFD700;
-      --whsk-yellow-dim: rgba(255, 215, 0, 0.12);
-      --status-active: #34D399;
-      --status-limited: #FBBF24;
-      --status-dormant: #F87171;
-      --status-dead: #6B7280;
-      --font-sans: 'Space Grotesk', system-ui, sans-serif;
-      --font-mono: 'Space Mono', monospace;
-      --gutter: clamp(20px, 5vw, 80px);
-      --w-page: 1120px;
+      --whsk: #FFD700;
+      --whsk-dim: rgba(255, 215, 0, 0.10);
+      --whsk-mid: rgba(255, 215, 0, 0.25);
+      --green: #34D399;
+      --green-dim: rgba(52, 211, 153, 0.12);
+      --amber: #FBBF24;
+      --amber-dim: rgba(251, 191, 36, 0.10);
+      --red: #F87171;
+      --red-dim: rgba(248, 113, 113, 0.10);
+      --slate: #64748B;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-brand: 'Space Grotesk', system-ui, sans-serif;
+      --gutter: clamp(24px, 5vw, 72px);
+      --w-page: 1080px;
     }
 
     html { scroll-behavior: smooth; }
@@ -41,9 +45,10 @@
     body {
       background: var(--bg);
       color: var(--fg);
-      font-family: var(--font-sans);
+      font-family: var(--font-body);
       -webkit-font-smoothing: antialiased;
-      line-height: 1.6;
+      line-height: 1.65;
+      font-size: 15px;
     }
 
     .container {
@@ -53,92 +58,196 @@
       padding: 0 var(--gutter);
     }
 
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
     /* ── HEADER ── */
     .site-header {
-      padding: 24px 0;
+      padding: 20px 0;
       border-bottom: 1px solid var(--line);
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10, 10, 10, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(10, 10, 10, 0.88);
+      backdrop-filter: blur(16px);
     }
 
     .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
     }
 
     .header-brand {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
     }
 
-    .mcc-wordmark {
-      height: 24px;
-      opacity: 0.7;
-    }
+    .mcc-wordmark { height: 20px; opacity: 0.6; }
 
-    .header-sep {
-      width: 1px;
-      height: 20px;
-      background: var(--line-strong);
-    }
+    .header-sep { width: 1px; height: 16px; background: var(--line-strong); }
 
-    .whsk-badge {
-      font-family: var(--font-sans);
-      font-size: 13px;
+    .whsk-label {
+      font-family: var(--font-brand);
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--whsk-yellow);
+      color: var(--whsk);
     }
 
     .header-meta {
-      font-family: var(--font-mono);
       font-size: 12px;
       color: var(--muted);
+      letter-spacing: 0.02em;
     }
 
     /* ── HERO ── */
     .hero {
-      padding: 72px 0 56px;
-      border-bottom: 1px solid var(--line);
+      padding: 64px 0 48px;
     }
 
-    .hero-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
+      color: var(--whsk);
+      margin-bottom: 20px;
     }
 
     .hero h1 {
-      font-size: clamp(28px, 4vw, 42px);
+      font-family: var(--font-brand);
+      font-size: clamp(32px, 5vw, 48px);
       font-weight: 700;
       letter-spacing: -0.03em;
-      line-height: 1.1;
+      line-height: 1.08;
       margin-bottom: 16px;
     }
 
-    .hero h1 span { color: var(--whsk-yellow); }
-
     .hero-sub {
-      font-size: 17px;
-      color: var(--muted);
-      max-width: 600px;
-      line-height: 1.6;
+      font-size: 16px;
+      color: var(--fg-secondary);
+      max-width: 640px;
+      line-height: 1.65;
     }
 
-    /* ── STATS BAR ── */
-    .stats-bar {
+    .hero-sub strong { color: var(--fg); font-weight: 600; }
+
+    /* ── LAUNCH READINESS ── */
+    .readiness {
+      padding: 48px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .readiness-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--whsk);
+    }
+
+    .section-title {
+      font-family: var(--font-brand);
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-top: 8px;
+    }
+
+    .readiness-note {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .phases {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .phase {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phase::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .phase.now::before { background: var(--whsk); }
+    .phase.next::before { background: var(--line-strong); }
+    .phase.later::before { background: var(--line); }
+
+    .phase-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .phase.now .phase-label { color: var(--whsk); }
+    .phase.next .phase-label { color: var(--fg-secondary); }
+    .phase.later .phase-label { color: var(--muted); }
+
+    .phase-title {
+      font-family: var(--font-brand);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .phase-items { list-style: none; }
+
+    .phase-items li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 7px 0;
+      font-size: 13px;
+      color: var(--fg-secondary);
+      line-height: 1.5;
+    }
+
+    .phase-items li + li { border-top: 1px solid var(--line); }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .status-dot.ready { background: var(--green); }
+    .status-dot.needs-input { background: var(--amber); }
+    .status-dot.blocked { background: var(--red); }
+    .status-dot.not-started { background: transparent; border: 1.5px solid var(--muted); }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
       gap: 1px;
       background: var(--line);
       border: 1px solid var(--line);
@@ -147,26 +256,27 @@
       margin: 40px 0;
     }
 
-    .stat-item {
+    .stat {
       background: var(--bg-card);
-      padding: 24px 28px;
+      padding: 20px 16px;
       text-align: center;
     }
 
-    .stat-number {
-      font-size: 28px;
+    .stat-num {
+      font-family: var(--font-brand);
+      font-size: 24px;
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: var(--fg);
     }
 
-    .stat-number.accent { color: var(--accent); }
-    .stat-number.warning { color: var(--status-limited); }
-    .stat-number.danger { color: var(--status-dormant); }
+    .stat-num.gold { color: var(--whsk); }
+    .stat-num.green { color: var(--green); }
+    .stat-num.white { color: var(--fg); }
+    .stat-num.red { color: var(--red); }
 
     .stat-label {
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 10px;
+      font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
@@ -179,90 +289,21 @@
       border-bottom: 1px solid var(--line);
     }
 
-    .section:last-child { border-bottom: none; }
+    .section:last-of-type { border-bottom: none; }
 
-    .section-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: clamp(22px, 3vw, 30px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 32px;
-    }
-
-    /* ── INSIGHT CARDS ── */
-    .insight-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
-    .insight-card {
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 28px;
-      transition: border-color 0.2s;
-    }
-
-    .insight-card:hover { border-color: var(--line-strong); }
-
-    .insight-card.highlight {
-      border-color: var(--accent);
-      border-left: 3px solid var(--accent);
-    }
-
-    .insight-card.warning {
-      border-color: var(--status-limited);
-      border-left: 3px solid var(--status-limited);
-    }
-
-    .insight-card.danger {
-      border-color: var(--status-dormant);
-      border-left: 3px solid var(--status-dormant);
-    }
-
-    .insight-card h3 {
+    .section-intro {
       font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      line-height: 1.3;
+      color: var(--fg-secondary);
+      max-width: 640px;
+      margin-bottom: 32px;
+      line-height: 1.65;
     }
 
-    .insight-card p {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .insight-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      margin-bottom: 16px;
-    }
-
-    .insight-icon.learn { background: var(--accent-dim); }
-    .insight-icon.grow { background: rgba(52, 211, 153, 0.15); }
-    .insight-icon.decide { background: var(--whsk-yellow-dim); }
-    .insight-icon.flag { background: rgba(248, 113, 113, 0.15); }
-
-    /* ── CREATOR PROFILES ── */
+    /* ── CREATOR CARDS ── */
     .creator-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
     }
 
     .creator-card {
@@ -270,102 +311,88 @@
       border: 1px solid var(--line);
       border-radius: 12px;
       overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color 0.2s;
     }
 
-    .creator-card:hover {
-      border-color: var(--line-strong);
-      transform: translateY(-2px);
-    }
+    .creator-card:hover { border-color: var(--line-strong); }
 
-    .creator-header {
-      padding: 28px 28px 0;
+    .cc-top {
+      padding: 24px 24px 0;
       display: flex;
-      gap: 16px;
+      gap: 14px;
       align-items: flex-start;
     }
 
-    .creator-avatar {
-      width: 56px;
-      height: 56px;
+    .cc-avatar {
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 700;
       flex-shrink: 0;
-      color: var(--accent-ink);
-      background: var(--accent);
+      font-family: var(--font-brand);
     }
 
-    .creator-avatar.whsk { background: var(--whsk-yellow); }
+    .cc-avatar.dist { background: var(--whsk); color: var(--bg); }
+    .cc-avatar.bts { background: var(--line-strong); color: var(--fg); }
 
-    .creator-info { flex: 1; min-width: 0; }
+    .cc-info { flex: 1; min-width: 0; }
 
-    .creator-name {
-      font-size: 17px;
+    .cc-name {
+      font-family: var(--font-brand);
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 2px;
     }
 
-    .creator-role {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
+    .cc-role { font-size: 13px; color: var(--muted); }
 
-    .creator-status {
+    .cc-status {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 3px 10px;
+      padding: 3px 8px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.05);
+      margin-top: 6px;
+      background: rgba(255,255,255,0.04);
     }
 
-    .creator-status .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-    }
+    .cc-status .dot { width: 5px; height: 5px; border-radius: 50%; }
+    .cc-status.active .dot { background: var(--green); }
+    .cc-status.active { color: var(--green); }
+    .cc-status.limited .dot { background: var(--amber); }
+    .cc-status.limited { color: var(--amber); }
+    .cc-status.needs-build .dot { background: var(--red); }
+    .cc-status.needs-build { color: var(--red); }
 
-    .creator-status.active .dot { background: var(--status-active); }
-    .creator-status.active { color: var(--status-active); }
-    .creator-status.limited .dot { background: var(--status-limited); }
-    .creator-status.limited { color: var(--status-limited); }
-    .creator-status.dormant .dot { background: var(--status-dormant); }
-    .creator-status.dormant { color: var(--status-dormant); }
-    .creator-status.dead .dot { background: var(--status-dead); }
-    .creator-status.dead { color: var(--status-dead); }
+    .cc-body { padding: 16px 24px 24px; }
 
-    .creator-body { padding: 20px 28px; }
-
-    .creator-bio {
+    .cc-bio {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--fg-secondary);
       line-height: 1.6;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .creator-platforms {
+    .cc-platforms {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 20px;
+      gap: 6px;
+      margin-bottom: 16px;
     }
 
-    .platform-chip {
+    .chip {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 8px;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 6px;
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--line);
       font-size: 12px;
@@ -374,224 +401,107 @@
       transition: background 0.15s, border-color 0.15s;
     }
 
-    .platform-chip:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: var(--line-strong);
-    }
+    .chip:hover { background: rgba(255,255,255,0.08); border-color: var(--line-strong); text-decoration: none; }
+    .chip.dead { opacity: 0.4; }
 
-    .platform-chip.dead {
-      opacity: 0.4;
-      text-decoration: line-through;
-    }
+    .chip svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .chip .num { font-weight: 600; color: var(--whsk); }
+    .chip.up .num { color: var(--green); }
+    .chip.dead .num { color: var(--red); text-decoration: line-through; }
 
-    .platform-chip svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    .platform-chip .count {
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    .platform-chip.dead .count {
-      color: var(--status-dormant);
-    }
-
-    .creator-note {
+    .cc-note {
       font-size: 12px;
-      color: var(--muted);
-      padding: 12px 16px;
+      color: var(--fg-secondary);
+      padding: 12px 14px;
       background: rgba(255,255,255,0.02);
       border-radius: 8px;
       border-left: 2px solid var(--line-strong);
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
-    .creator-note.warning {
-      border-left-color: var(--status-limited);
-      background: rgba(251, 191, 36, 0.05);
-    }
+    .cc-note a { font-weight: 500; }
 
-    .creator-note.danger {
-      border-left-color: var(--status-dormant);
-      background: rgba(248, 113, 113, 0.05);
-    }
-
-    /* ── AGGREGATE BAR ── */
-    .aggregate-bar {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding: 20px 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-    }
-
-    .aggregate-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .aggregate-stat {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-    }
-
-    .aggregate-stat .num {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .aggregate-stat .unit {
-      font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .aggregate-sep {
-      width: 1px;
-      height: 24px;
-      background: var(--line);
-    }
-
-    /* ── CHECKLIST ── */
-    .checklist { list-style: none; }
-
-    .checklist li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .checklist li:last-child { border-bottom: none; }
-
-    .check-box {
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--line-strong);
-      border-radius: 4px;
-      flex-shrink: 0;
-      margin-top: 2px;
-      cursor: pointer;
-      transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .check-box:hover { border-color: var(--accent); }
-
-    .check-box.checked {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .check-box.checked::after {
-      content: '';
-      width: 5px;
-      height: 9px;
-      border: 2px solid var(--accent-ink);
-      border-top: none;
-      border-left: none;
-      transform: rotate(45deg) translateY(-1px);
-    }
-
-    .checklist li.done { text-decoration: line-through; opacity: 0.5; }
+    .cc-note.change { border-left-color: var(--whsk); background: var(--whsk-dim); }
+    .cc-note.growth { border-left-color: var(--green); background: var(--green-dim); }
+    .cc-note.discuss { border-left-color: var(--amber); background: var(--amber-dim); }
 
     /* ── BTS GRID ── */
     .bts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
     }
 
     .bts-card {
       background: var(--bg-card);
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 24px;
-      text-align: center;
+      padding: 20px;
     }
 
-    .bts-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
+    .bts-card .cc-avatar { margin-bottom: 12px; }
+    .bts-card .cc-name { font-size: 14px; margin-bottom: 2px; }
+    .bts-card .cc-role { font-size: 11px; margin-bottom: 10px; }
+    .bts-card .cc-bio { font-size: 12px; margin-bottom: 0; }
+
+    /* ── FRIDAY AGENDA ── */
+    .agenda-list { list-style: none; counter-reset: agenda; }
+
+    .agenda-list li {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: flex-start;
+    }
+
+    .agenda-list li:last-child { border-bottom: none; }
+
+    .agenda-num {
+      counter-increment: agenda;
+      font-family: var(--font-brand);
+      font-size: 14px;
       font-weight: 700;
-      margin: 0 auto 12px;
-      color: var(--bg);
-      background: var(--muted);
+      color: var(--whsk);
+      width: 24px;
+      flex-shrink: 0;
+      padding-top: 1px;
     }
 
-    .bts-name {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
+    .agenda-num::before { content: counter(agenda); }
 
-    .bts-role {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-
-    .bts-bio {
-      font-size: 12px;
-      color: var(--muted-light);
-      line-height: 1.5;
-    }
+    .agenda-text { font-size: 14px; color: var(--fg-secondary); line-height: 1.6; }
+    .agenda-text strong { color: var(--fg); font-weight: 600; }
 
     /* ── FOOTER ── */
     .site-footer {
-      padding: 40px 0;
+      padding: 32px 0;
       border-top: 1px solid var(--line);
       text-align: center;
-    }
-
-    .footer-text {
       font-size: 12px;
-      color: var(--muted-light);
+      color: var(--muted);
     }
 
-    .footer-text a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+    .site-footer a { color: var(--accent); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      .phases { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(3, 1fr); }
       .creator-grid { grid-template-columns: 1fr; }
       .bts-grid { grid-template-columns: repeat(2, 1fr); }
       .header-meta { display: none; }
-      .aggregate-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .aggregate-sep { display: none; }
-      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .bts-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── HEADER ── -->
+  <!-- HEADER -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="header-brand">
@@ -603,375 +513,278 @@
           </g>
         </svg>
         <div class="header-sep"></div>
-        <span class="whsk-badge">WHSK</span>
+        <span class="whsk-label">WHSK</span>
       </div>
       <span class="header-meta">November 25, 2026 &middot; Internal</span>
     </div>
   </header>
 
-  <!-- ── HERO ── -->
+  <!-- HERO -->
   <div class="hero">
     <div class="container">
-      <div class="hero-label">Creator Network Report</div>
-      <h1>We Hunt Serial Killers<br><span>Distribution Audit</span></h1>
-      <p class="hero-sub">Reality-checking the WHSK deck's "Built-In Distribution" claims. Verified handles, current follower counts, and platform status for every creator in the network.</p>
+      <div class="hero-eyebrow">Launch Dashboard</div>
+      <h1>We Hunt Serial Killers</h1>
+      <p class="hero-sub">Internal tracker for the WHSK YouTube launch. This is a working document. I've started pulling together what I could verify tonight after the VN call. <strong>By Friday, we'll fill in the gaps together.</strong></p>
     </div>
   </div>
 
-  <!-- ── STATS BAR ── -->
+  <!-- LAUNCH READINESS -->
+  <div class="readiness">
+    <div class="container">
+      <div class="readiness-header">
+        <div>
+          <div class="section-eyebrow">Launch Readiness</div>
+          <h2 class="section-title">What needs to happen before we go live</h2>
+        </div>
+        <div class="readiness-note">Target: Mid-February 2027</div>
+      </div>
+
+      <div class="phases">
+        <div class="phase now">
+          <div class="phase-label">Phase 1 &mdash; Now</div>
+          <div class="phase-title">Foundation</div>
+          <ul class="phase-items">
+            <li><span class="status-dot needs-input"></span>WHSK channel branding (art, bios, descriptions)</li>
+            <li><span class="status-dot needs-input"></span>Alex's public profile strategy</li>
+            <li><span class="status-dot ready"></span>Handle corrections sent to VN</li>
+            <li><span class="status-dot needs-input"></span>Episode edit-lock status</li>
+            <li><span class="status-dot needs-input"></span>Content pipeline &mdash; who cuts clips, who posts</li>
+          </ul>
+        </div>
+
+        <div class="phase next">
+          <div class="phase-label">Phase 2 &mdash; Jan</div>
+          <div class="phase-title">Content Seeding</div>
+          <ul class="phase-items">
+            <li><span class="status-dot not-started"></span>Publish first 4-6 episodes to WHSK YouTube</li>
+            <li><span class="status-dot not-started"></span>Short-form clips pipeline (Shorts, Reels, TikTok)</li>
+            <li><span class="status-dot not-started"></span>Creator network begins soft amplification</li>
+            <li><span class="status-dot not-started"></span>Best clip to Paul for podcast outreach</li>
+          </ul>
+        </div>
+
+        <div class="phase later">
+          <div class="phase-label">Phase 3 &mdash; Mid-Feb</div>
+          <div class="phase-title">Coordinated Launch</div>
+          <ul class="phase-items">
+            <li><span class="status-dot not-started"></span>Cross-platform push across creator network</li>
+            <li><span class="status-dot not-started"></span>Podcast cross-promotion (Undisclosed, Mike Drop)</li>
+            <li><span class="status-dot not-started"></span>VN grassroots &amp; outreach playbook executes</li>
+            <li><span class="status-dot not-started"></span>Press outreach (California Post relationship)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
   <div class="container">
-    <div class="stats-bar">
-      <div class="stat-item">
-        <div class="stat-number warning">3.59M</div>
-        <div class="stat-label">Deck Claims (ASR)</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num gold">6</div>
+        <div class="stat-label">Distribution Creators</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number accent">~1.4M</div>
-        <div class="stat-label">Verified Video Reach</div>
+      <div class="stat">
+        <div class="stat-num white">~1.4M</div>
+        <div class="stat-label">Video-Capable Reach</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number">2 of 6</div>
-        <div class="stat-label">Have Active YouTube</div>
+      <div class="stat">
+        <div class="stat-num white">2</div>
+        <div class="stat-label">Active YouTube Channels</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number danger">0</div>
-        <div class="stat-label">WHSK Videos Published</div>
+      <div class="stat">
+        <div class="stat-num green">838K</div>
+        <div class="stat-label">Largest True Crime YT</div>
       </div>
-    </div>
-  </div>
-
-  <!-- ── WHAT WE LEARNED ── -->
-  <div class="section">
-    <div class="container">
-      <div class="section-label">Findings</div>
-      <h2 class="section-title">What We Learned Today</h2>
-      <div class="insight-grid">
-        <div class="insight-card highlight">
-          <div class="insight-icon learn">&#128269;</div>
-          <h3>Only 2 creators have active YouTube channels</h3>
-          <p>Aidan Mattis (838K subs) and Mike Ritland (557K subs) are the only creators with real YouTube presence. Only Aidan's audience is true crime.</p>
-        </div>
-        <div class="insight-card highlight">
-          <div class="insight-icon learn">&#128269;</div>
-          <h3>WHSK brand channels are empty shells</h3>
-          <p>Zero videos on YouTube. Zero on TikTok (1 follower). Instagram appears unavailable. No branding, no bios, no content on any platform.</p>
-        </div>
-        <div class="insight-card highlight">
-          <div class="insight-icon learn">&#128269;</div>
-          <h3>Deck handles are wrong for 2 creators</h3>
-          <p>Ken Waks is @ken on TikTok and @waksonwaksoff on IG (not @kenwaks). These need correcting before VN builds the playbook.</p>
-        </div>
-        <div class="insight-card highlight">
-          <div class="insight-icon learn">&#128269;</div>
-          <h3>Mike Ritland grew 27% since the deck</h3>
-          <p>YouTube subs up from 438K to 557K, posting 1-2 videos/day with ~55K avg views. The strongest growth story in the network.</p>
-        </div>
+      <div class="stat">
+        <div class="stat-num red">0</div>
+        <div class="stat-label">WHSK Videos Live</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num gold">Mid-Feb</div>
+        <div class="stat-label">Recommended Launch</div>
       </div>
     </div>
   </div>
 
-  <!-- ── GROWTH AREAS ── -->
+  <!-- DISTRIBUTION NETWORK -->
   <div class="section">
     <div class="container">
-      <div class="section-label">Opportunity</div>
-      <h2 class="section-title">Growth Areas</h2>
-      <div class="insight-grid">
-        <div class="insight-card">
-          <div class="insight-icon grow">&#127793;</div>
-          <h3>Military crossover through Ritland</h3>
-          <p>Mike's audience is military/veteran, not true crime. That's a feature: "Navy SEAL joins serial killer investigation" is a natural crossover piece that extends reach beyond the true crime bubble.</p>
-        </div>
-        <div class="insight-card">
-          <div class="insight-icon grow">&#127793;</div>
-          <h3>Rabia's podcast network</h3>
-          <p>Undisclosed has 400-500M lifetime downloads and Season 9 just launched. A cross-promotion or guest segment about WHSK reaches a massive, loyal true crime audience that's already proven to follow cold cases.</p>
-        </div>
-        <div class="insight-card">
-          <div class="insight-icon grow">&#127793;</div>
-          <h3>Aidan Mattis collaboration</h3>
-          <p>At 838K subs and ~387K avg views, a Lore Lodge feature on the WHSK case could be the single biggest launch driver. His audience is exactly the right demo.</p>
-        </div>
-        <div class="insight-card">
-          <div class="insight-icon grow">&#127793;</div>
-          <h3>Content-first soft launch</h3>
-          <p>Push public launch to mid-February. Use December-January to publish 4-6 episodes on the WHSK channel. When outreach brings eyeballs, they land on a credible page, not an empty shell.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── DECISIONS NEEDED ── -->
-  <div class="section">
-    <div class="container">
-      <div class="section-label">Action Required</div>
-      <h2 class="section-title">Decisions Needed</h2>
-      <div class="insight-card" style="max-width:720px;">
-        <ul class="checklist">
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span><strong>Launch timing:</strong> Push from January to mid-February? Gives 4-6 weeks to seed the channel with content before outreach.</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span><strong>Alex's profile strategy:</strong> Review @alexfosterghostwriter as-is for VN, or build a new investigator-branded profile for the launch?</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span><strong>Best clip for Paul:</strong> Pick the single strongest 1-2 min clip for the Howie Mandel podcast outreach. Send to Sam/Paul ASAP.</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span><strong>Episode release cadence:</strong> Weekly? Bi-weekly? All at once? How many of the 10 episodes are edit-locked?</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span><strong>WHSK channel branding:</strong> Who is building out channel art, bios, and descriptions? These are bare shells right now.</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span><strong>Content pipeline:</strong> Who is cutting clips for Shorts/Reels/TikTok? Who owns the posting schedule?</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── UNANSWERED ── -->
-  <div class="section">
-    <div class="container">
-      <div class="section-label">Open Items</div>
-      <h2 class="section-title">Still Unanswered</h2>
-      <div class="insight-card" style="max-width:720px;">
-        <ul class="checklist">
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span>WHSK Instagram status &mdash; private, renamed, or not yet created?</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span>Aidan Mattis TikTok (@theaidanmattis) &mdash; account appears dead or private. What happened?</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span>Kyle Creek's Facebook page &mdash; the deck claims 456K followers but no page can be found. What's the page name?</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span>Is Kyle Creek willing/able to create video content (Reels, Shorts) for the launch?</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span>Companion podcast plans &mdash; is there a WHSK podcast alongside the YouTube series?</span>
-          </li>
-          <li>
-            <div class="check-box" onclick="this.classList.toggle('checked');this.closest('li').classList.toggle('done')"></div>
-            <span>Updated materials &mdash; any changes to the decks, rough cuts, or sizzle reel since VN last received them?</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── DISTRIBUTION NETWORK ── -->
-  <div class="section">
-    <div class="container">
-      <div class="section-label">Distribution Network</div>
+      <div class="section-eyebrow">Distribution Network</div>
       <h2 class="section-title">Creator Profiles</h2>
-      <p class="hero-sub" style="margin-bottom:32px;">These are the creators whose social channels contribute to WHSK's aggregate reach. Each profile links directly to their verified accounts.</p>
-
-      <div class="aggregate-bar">
-        <span class="aggregate-label">Verified Aggregate</span>
-        <div class="aggregate-stat">
-          <span class="num">~1.4M</span>
-          <span class="unit">Video-Capable Reach</span>
-        </div>
-        <div class="aggregate-sep"></div>
-        <div class="aggregate-stat">
-          <span class="num">2</span>
-          <span class="unit">Active YouTube Channels</span>
-        </div>
-        <div class="aggregate-sep"></div>
-        <div class="aggregate-stat">
-          <span class="num">1</span>
-          <span class="unit">True Crime YT Audience</span>
-        </div>
-      </div>
+      <p class="section-intro">These are the creators whose social channels make up WHSK's aggregate reach. I pulled current numbers and verified every handle tonight. A few things have shifted since the deck was put together &mdash; I've noted what changed and linked to the sources.</p>
 
       <div class="creator-grid">
 
-        <!-- ALEX CODY FOSTER -->
+        <!-- ALEX -->
         <div class="creator-card">
-          <div class="creator-header">
-            <div class="creator-avatar whsk">AF</div>
-            <div class="creator-info">
-              <div class="creator-name">Alex Cody Foster</div>
-              <div class="creator-role">Lead Investigator &amp; Founder, WHSK</div>
-              <span class="creator-status dead"><span class="dot"></span>No presence</span>
+          <div class="cc-top">
+            <div class="cc-avatar dist">AF</div>
+            <div class="cc-info">
+              <div class="cc-name">Alex Cody Foster</div>
+              <div class="cc-role">Lead Investigator &amp; Founder</div>
+              <span class="cc-status needs-build"><span class="dot"></span>Needs build</span>
             </div>
           </div>
-          <div class="creator-body">
-            <p class="creator-bio">Bestselling author, ghostwriter, investigator. Featured in Netflix's <em>Running with the Devil</em> (John McAfee doc). 8 Amazon #1 bestsellers. Escaped a serial killer as a homeless teen in LA.</p>
-            <div class="creator-platforms">
-              <a href="https://instagram.com/alexfosterghostwriter" target="_blank" rel="noopener" class="platform-chip">
+          <div class="cc-body">
+            <p class="cc-bio">Bestselling author, ghostwriter, investigator. Featured in Netflix's <em>Running with the Devil</em>. 8 Amazon #1 bestsellers. The face and voice of WHSK.</p>
+            <div class="cc-platforms">
+              <a href="https://instagram.com/alexfosterghostwriter" target="_blank" rel="noopener" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                <span>~1,774</span>
+                <span class="num">~1,774</span>
               </a>
             </div>
-            <div class="creator-note warning">The face of WHSK has minimal social presence. IG is branded as a ghostwriter, not an investigator. No YouTube, TikTok, or X accounts. This is the biggest gap to close before launch.</div>
+            <div class="cc-note discuss">Alex's current IG is branded as a ghostwriter, not an investigator. For Friday: <strong>do you want VN reviewing this profile as-is, or are you building a new one for the WHSK launch?</strong> This is the biggest thing to figure out first.</div>
           </div>
         </div>
 
-        <!-- AIDAN MATTIS -->
+        <!-- AIDAN -->
         <div class="creator-card">
-          <div class="creator-header">
-            <div class="creator-avatar">AM</div>
-            <div class="creator-info">
-              <div class="creator-name">Aidan Mattis</div>
-              <div class="creator-role">Historian &amp; Researcher &mdash; Lore Lodge</div>
-              <span class="creator-status active"><span class="dot"></span>Active</span>
+          <div class="cc-top">
+            <div class="cc-avatar dist">AM</div>
+            <div class="cc-info">
+              <div class="cc-name">Aidan Mattis</div>
+              <div class="cc-role">Historian &amp; Researcher &mdash; <a href="https://youtube.com/@thelorelodge" target="_blank">Lore Lodge</a></div>
+              <span class="cc-status active"><span class="dot"></span>Active</span>
             </div>
           </div>
-          <div class="creator-body">
-            <p class="creator-bio">Creator and host of Lore Lodge, one of YouTube's top true crime and mystery channels. Historian, researcher, and "forensic historian." Averaging ~387K views per video.</p>
-            <div class="creator-platforms">
-              <a href="https://youtube.com/@thelorelodge" target="_blank" rel="noopener" class="platform-chip">
+          <div class="cc-body">
+            <p class="cc-bio">Creator and host of Lore Lodge, one of YouTube's top true crime and mystery channels. Averaging <a href="https://youtube.com/@thelorelodge/videos" target="_blank">~387K views per video</a>. This is the strongest channel in the network.</p>
+            <div class="cc-platforms">
+              <a href="https://youtube.com/@thelorelodge" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                <span class="count">838K</span>
+                <span class="num">838K</span>
               </a>
-              <a href="https://instagram.com/theaidanmattis" target="_blank" rel="noopener" class="platform-chip">
+              <a href="https://instagram.com/theaidanmattis" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                <span class="count">46K</span>
+                <span class="num">46K</span>
               </a>
-              <a href="https://instagram.com/thelorelodgeofficial" target="_blank" rel="noopener" class="platform-chip">
+              <a href="https://instagram.com/thelorelodgeofficial" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                 <span>Brand 11K</span>
               </a>
-              <span class="platform-chip dead">
+              <a href="https://tiktok.com/@theaidanmattis" target="_blank" class="chip dead">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                <span class="count">Dead</span>
-              </span>
-              <a href="https://x.com/MattisRedacted" target="_blank" rel="noopener" class="platform-chip">
+                <span class="num">Unavailable</span>
+              </a>
+              <a href="https://x.com/MattisRedacted" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 <span>17.5K</span>
               </a>
             </div>
-            <div class="creator-note warning">TikTok (@theaidanmattis) appears deactivated or private. Previously had ~1.2M followers. YouTube views trending down 23% in Oct/Nov. Heavy sponsor load (47 in last 12 months) may limit availability for WHSK content.</div>
+            <div class="cc-note change">Since the deck: TikTok account <a href="https://tiktok.com/@theaidanmattis" target="_blank">appears deactivated or private</a> (was listed at ~1.2M). YouTube views are down ~23% from his 90-day average. He's still by far the strongest channel in the network, and his brand IG posts <a href="https://instagram.com/thelorelodgeofficial" target="_blank">daily Reels</a>. Worth asking if there's a plan to bring TikTok back.</div>
           </div>
         </div>
 
-        <!-- KEN WAKS -->
+        <!-- KEN -->
         <div class="creator-card">
-          <div class="creator-header">
-            <div class="creator-avatar">KW</div>
-            <div class="creator-info">
-              <div class="creator-name">Ken Waks</div>
-              <div class="creator-role">Researcher &amp; Tech Entrepreneur</div>
-              <span class="creator-status limited"><span class="dot"></span>Limited</span>
+          <div class="cc-top">
+            <div class="cc-avatar dist">KW</div>
+            <div class="cc-info">
+              <div class="cc-name">Ken Waks</div>
+              <div class="cc-role">Researcher &amp; Tech Entrepreneur</div>
+              <span class="cc-status limited"><span class="dot"></span>Limited</span>
             </div>
           </div>
-          <div class="creator-body">
-            <p class="creator-bio">Gained viral fame researching the Smiley Face Murderers on TikTok. Technology entrepreneur, social media personality. Co-developing Detective HQ investigative application with Alex.</p>
-            <div class="creator-platforms">
-              <a href="https://tiktok.com/@ken" target="_blank" rel="noopener" class="platform-chip">
+          <div class="cc-body">
+            <p class="cc-bio">Viral fame from TikTok true crime research. Technology entrepreneur. Co-developing the Detective HQ investigative application with Alex.</p>
+            <div class="cc-platforms">
+              <a href="https://tiktok.com/@ken" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                <span class="count">~950K</span>
+                <span class="num">~950K</span>
               </a>
-              <a href="https://instagram.com/waksonwaksoff" target="_blank" rel="noopener" class="platform-chip">
+              <a href="https://instagram.com/waksonwaksoff" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                <span class="count">~81K</span>
+                <span class="num">~81K</span>
               </a>
             </div>
-            <div class="creator-note danger">Handles don't match the deck (deck says @kenwaks, actual is @ken on TikTok and @waksonwaksoff on IG). No YouTube channel. 2023 Smiley Face Killers investigation drew criticism from NBC News and Rolling Stone. Post-controversy, shifted content away from true crime. Discuss positioning with Alex before including in outreach materials.</div>
+            <div class="cc-note change">Handle update: the deck lists @kenwaks, but his actual handles are <a href="https://tiktok.com/@ken" target="_blank">@ken on TikTok</a> and <a href="https://instagram.com/waksonwaksoff" target="_blank">@waksonwaksoff on IG</a>. No YouTube channel. Also worth noting: Ken's 2023 Smiley Face Killers investigation got coverage in <a href="https://www.google.com/search?q=ken+waks+smiley+face+killers+nbc+news" target="_blank">NBC News</a> and <a href="https://www.google.com/search?q=ken+waks+smiley+face+killers+rolling+stone" target="_blank">Rolling Stone</a> that's still on the first page of Google. If you're aware and have a plan for positioning around it, great. If not, let's discuss Friday.</div>
           </div>
         </div>
 
-        <!-- KYLE CREEK -->
+        <!-- KYLE -->
         <div class="creator-card">
-          <div class="creator-header">
-            <div class="creator-avatar">KC</div>
-            <div class="creator-info">
-              <div class="creator-name">Kyle Creek</div>
-              <div class="creator-role">Archivist, Historian &amp; Author &mdash; "The Captain"</div>
-              <span class="creator-status limited"><span class="dot"></span>Limited</span>
+          <div class="cc-top">
+            <div class="cc-avatar dist">KC</div>
+            <div class="cc-info">
+              <div class="cc-name">Kyle Creek</div>
+              <div class="cc-role">Archivist, Historian &amp; Author</div>
+              <span class="cc-status limited"><span class="dot"></span>Writer only</span>
             </div>
           </div>
-          <div class="creator-body">
-            <p class="creator-bio">Best-selling author of "Fucking History" and "Feel Free to Quote Me" series. Runs the "Monday Mutiny" Substack newsletter (36K subscribers). Writer and quote/meme personality.</p>
-            <div class="creator-platforms">
-              <a href="https://instagram.com/sgrstk" target="_blank" rel="noopener" class="platform-chip">
+          <div class="cc-body">
+            <p class="cc-bio">Best-selling author of the "Fucking History" series. Runs the "Monday Mutiny" Substack (36K subscribers). Writer and quote/meme personality &mdash; known as "The Captain."</p>
+            <div class="cc-platforms">
+              <a href="https://instagram.com/sgrstk" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                <span class="count">~470K</span>
+                <span class="num">~470K</span>
               </a>
-              <a href="https://x.com/sgrstk" target="_blank" rel="noopener" class="platform-chip dead">
+              <a href="https://x.com/sgrstk" target="_blank" class="chip dead">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                <span class="count">93K (dormant since 2020)</span>
+                <span class="num">93K &mdash; dormant since 2020</span>
               </a>
             </div>
-            <div class="creator-note warning">No YouTube, no TikTok, no video content capability. X dormant since Nov 2020. Facebook page (deck claims 456K) cannot be located. Kyle is a writer/meme personality, not a video creator. His IG follower count (~470K) is behind a login wall and unverifiable. Getting him to produce Reels or Shorts would require a format shift.</div>
+            <div class="cc-note discuss">I couldn't find the Facebook page (deck listed 456K). No YouTube or TikTok. Kyle's strength is written content, not video. For Friday: <strong>do you have the FB page link? And is Kyle open to creating Reels or Shorts for the launch?</strong></div>
           </div>
         </div>
 
-        <!-- MIKE RITLAND -->
+        <!-- MIKE -->
         <div class="creator-card">
-          <div class="creator-header">
-            <div class="creator-avatar">MR</div>
-            <div class="creator-info">
-              <div class="creator-name">Mike Ritland</div>
-              <div class="creator-role">Navy SEAL &amp; Operational Strategist &mdash; Mike Drop</div>
-              <span class="creator-status active"><span class="dot"></span>Active</span>
+          <div class="cc-top">
+            <div class="cc-avatar dist">MR</div>
+            <div class="cc-info">
+              <div class="cc-name">Mike Ritland</div>
+              <div class="cc-role">Navy SEAL &amp; Operational Strategist &mdash; <a href="https://youtube.com/@MikeRitland" target="_blank">Mike Drop</a></div>
+              <span class="cc-status active"><span class="dot"></span>Active</span>
             </div>
           </div>
-          <div class="creator-body">
-            <p class="creator-bio">Former Navy SEAL, K9 trainer, NY Times bestselling author. Host of the Mike Drop podcast. Provides security, field operations, and investigative risk management for WHSK. Posting 1-2 videos/day.</p>
-            <div class="creator-platforms">
-              <a href="https://youtube.com/@MikeRitland" target="_blank" rel="noopener" class="platform-chip">
+          <div class="cc-body">
+            <p class="cc-bio">Former Navy SEAL, K9 trainer, NY Times bestselling author. Host of the Mike Drop podcast. Provides security, field operations, and investigative risk management for WHSK. Posting <a href="https://youtube.com/@MikeRitland/videos" target="_blank">1-2 videos per day</a>.</p>
+            <div class="cc-platforms">
+              <a href="https://youtube.com/@MikeRitland" target="_blank" class="chip up">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                <span class="count">557K</span>
+                <span class="num">557K &#8593;</span>
               </a>
-              <a href="https://instagram.com/mritland" target="_blank" rel="noopener" class="platform-chip">
+              <a href="https://instagram.com/mritland" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                <span class="count">150K</span>
+                <span class="num">150K</span>
               </a>
-              <a href="https://instagram.com/mikedroppodcast" target="_blank" rel="noopener" class="platform-chip">
+              <a href="https://instagram.com/mikedroppodcast" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                 <span>Podcast 44K</span>
               </a>
-              <a href="https://tiktok.com/@mritland" target="_blank" rel="noopener" class="platform-chip">
+              <a href="https://tiktok.com/@mritland" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
                 <span>19K</span>
               </a>
             </div>
-            <div class="creator-note">Grew 27% since the deck (438K to 557K). Strongest growth story in the network. Audience is military/veteran/national security, not true crime. That's a feature for broadening reach beyond the true crime bubble. Avg ~55K views per long-form video with ~10% view rate.</div>
+            <div class="cc-note growth">Since the deck: YouTube up 27% (438K &#8594; <a href="https://youtube.com/@MikeRitland" target="_blank">557K</a>). Averaging <a href="https://youtube.com/@MikeRitland/videos" target="_blank">~55K views</a> per long-form video with a ~10% view rate. Strongest growth story in the network. His audience is military/veteran, not true crime &mdash; that's actually an advantage for broadening reach beyond the true crime bubble.</div>
           </div>
         </div>
 
-        <!-- RABIA CHAUDRY -->
+        <!-- RABIA -->
         <div class="creator-card">
-          <div class="creator-header">
-            <div class="creator-avatar">RC</div>
-            <div class="creator-info">
-              <div class="creator-name">Rabia Chaudry</div>
-              <div class="creator-role">Attorney, Advocate &amp; Podcast Host</div>
-              <span class="creator-status limited"><span class="dot"></span>Podcast only</span>
+          <div class="cc-top">
+            <div class="cc-avatar dist">RC</div>
+            <div class="cc-info">
+              <div class="cc-name">Rabia Chaudry</div>
+              <div class="cc-role">Attorney, Advocate &amp; Podcast Host</div>
+              <span class="cc-status limited"><span class="dot"></span>Podcast only</span>
             </div>
           </div>
-          <div class="creator-body">
-            <p class="creator-bio">Attorney, advocate, NY Times bestselling author. Known for her case on Serial (Adnan Syed) and hosting Undisclosed (400-500M lifetime downloads). One of the most recognized voices in modern true crime.</p>
-            <div class="creator-platforms">
-              <a href="https://instagram.com/rabiasquared2" target="_blank" rel="noopener" class="platform-chip">
+          <div class="cc-body">
+            <p class="cc-bio">Attorney, advocate, NY Times bestselling author. Known for her case on Serial (Adnan Syed) and hosting Undisclosed (400-500M lifetime downloads). One of the most recognized voices in modern true crime.</p>
+            <div class="cc-platforms">
+              <a href="https://instagram.com/rabiasquared2" target="_blank" class="chip">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                <span class="count">164K</span>
+                <span class="num">164K</span>
               </a>
-              <a href="https://x.com/rabiasquared" target="_blank" rel="noopener" class="platform-chip dead">
+              <a href="https://x.com/rabiasquared" target="_blank" class="chip dead">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                <span class="count">180K (dormant since Jun 2024)</span>
+                <span class="num">180K &mdash; dormant since Jun 2024</span>
               </a>
-              <span class="platform-chip dead">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                <span class="count">TikTok: placeholder only</span>
-              </span>
             </div>
-            <div class="creator-note">No YouTube, no TikTok content, X dormant 2+ years. Her value is name recognition and podcast cross-promotion, not social video. Undisclosed Season 9 (Holly Bobo) launched ~Oct 2026. Also hosts Rabia and Ellyn Solve the Case, The Hidden Djinn, and Nighty Night.</div>
+            <div class="cc-note">No YouTube, no TikTok content, X dormant. Rabia's value is her name and her podcast reach. Undisclosed Season 9 (Holly Bobo) just launched. For launch: her play is cross-promotion through podcast mentions and <a href="https://instagram.com/rabiasquared2" target="_blank">IG amplification</a>, not short-form video.</div>
           </div>
         </div>
 
@@ -979,81 +792,76 @@
     </div>
   </div>
 
-  <!-- ── BEHIND THE SCENES ── -->
+  <!-- PRODUCTION TEAM -->
   <div class="section">
     <div class="container">
-      <div class="section-label">Production &amp; Expertise</div>
+      <div class="section-eyebrow">Production &amp; Expertise</div>
       <h2 class="section-title">Behind the Scenes</h2>
-      <p class="hero-sub" style="margin-bottom:32px;">These team members are critical to WHSK's credibility and production. Their social reach is not counted toward the aggregate distribution number.</p>
+      <p class="section-intro">These team members are critical to WHSK's credibility and production quality. Their social reach isn't counted toward the aggregate distribution number above.</p>
+
       <div class="bts-grid">
         <div class="bts-card">
-          <div class="bts-avatar">MA</div>
-          <div class="bts-name">Dr. Michael Arntfield</div>
-          <div class="bts-role">Criminologist &amp; Profiler</div>
-          <div class="bts-bio">Professor, Fulbright Scholar. 15 years London Ontario Police. Founded Cold Case Society. Director of Murder Accountability Project. 11 books. The expert who makes WHSK serious.</div>
+          <div class="cc-avatar bts">MA</div>
+          <div class="cc-name">Dr. Michael Arntfield</div>
+          <div class="cc-role">Criminologist &amp; Profiler</div>
+          <p class="cc-bio">Professor, Fulbright Scholar. 15 years London Ontario Police. Founded Cold Case Society. Director of Murder Accountability Project. 11 books.</p>
         </div>
         <div class="bts-card">
-          <div class="bts-avatar">PC</div>
-          <div class="bts-name">Perry Crowell</div>
-          <div class="bts-role">Investigator &amp; Director</div>
-          <div class="bts-bio">Emmy Award-winning director (The Doctor). Two ESPN 30 for 30 films. The Sunshine Place (Apple #1 podcast, Deadline Club Award). Peabody-nominated. WHSK's behind-the-scenes investigator.</div>
+          <div class="cc-avatar bts">PC</div>
+          <div class="cc-name">Perry Crowell</div>
+          <div class="cc-role">Investigator &amp; Director</div>
+          <p class="cc-bio">Emmy winner (The Doctor). Two ESPN 30 for 30 films. The Sunshine Place (Apple #1, Deadline Club Award). Peabody-nominated.</p>
         </div>
         <div class="bts-card">
-          <div class="bts-avatar">JT</div>
-          <div class="bts-name">Jennifer Tocquigny</div>
-          <div class="bts-role">Producer &amp; Editor</div>
-          <div class="bts-bio">Hundreds of hours of crime content. Producer, editor, writer, director, cinematographer. PI license-qualified. The production engine behind the camera.</div>
+          <div class="cc-avatar bts">JT</div>
+          <div class="cc-name">Jennifer Tocquigny</div>
+          <div class="cc-role">Producer &amp; Editor</div>
+          <p class="cc-bio">Hundreds of hours of crime content. Producer, editor, writer, director, cinematographer. PI license-qualified.</p>
         </div>
         <div class="bts-card">
-          <div class="bts-avatar">BH</div>
-          <div class="bts-name">Brian Hunt</div>
-          <div class="bts-role">President, Believe Entertainment Group</div>
-          <div class="bts-bio">Oscar winner (Dear Basketball), 3x Emmy winner. Kings From Queens (Peacock), Bronx Zoo '90, Billion Dollar Babies. The studio partner who takes WHSK from YouTube to film.</div>
+          <div class="cc-avatar bts">BH</div>
+          <div class="cc-name">Brian Hunt</div>
+          <div class="cc-role">President, Believe Ent. Group</div>
+          <p class="cc-bio">Oscar winner (Dear Basketball). 3x Emmy winner. Kings From Queens (Peacock), Bronx Zoo '90, Billion Dollar Babies.</p>
         </div>
         <div class="bts-card">
-          <div class="bts-avatar" style="background: var(--whsk-yellow);">GT</div>
-          <div class="bts-name">Galina Trefil</div>
-          <div class="bts-role">Central Subject</div>
-          <div class="bts-bio">Daughter of Dr. Jon Trefil. The person whose story drives the entire investigation. Her allegations and evidence are the core of both the web series and the feature film.</div>
+          <div class="cc-avatar dist">GT</div>
+          <div class="cc-name">Galina Trefil</div>
+          <div class="cc-role">Central Subject</div>
+          <p class="cc-bio">The person whose story drives the entire investigation. Her allegations and evidence are the core of the web series and the feature film.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ── FLAGS ── -->
+  <!-- FRIDAY AGENDA -->
   <div class="section">
     <div class="container">
-      <div class="section-label">Awareness</div>
-      <h2 class="section-title">Flags</h2>
-      <div class="insight-grid">
-        <div class="insight-card danger">
-          <div class="insight-icon flag">&#9888;</div>
-          <h3>Ken Waks: 2023 media coverage</h3>
-          <p>NBC News, Rolling Stone, and others covered controversy around Ken's Smiley Face Killers investigation on TikTok. Coverage is on the first page of Google results. Any journalist or creator receiving WHSK outreach material will find it quickly. Worth discussing positioning with Alex.</p>
-        </div>
-        <div class="insight-card warning">
-          <div class="insight-icon flag">&#9888;</div>
-          <h3>Kyle Creek: unverifiable numbers</h3>
-          <p>The deck claims 926K combined ASR (IG + FB). IG is behind a login wall, and no Facebook page can be found. The 456K FB number may not exist in the form claimed. Real distribution value is uncertain.</p>
-        </div>
-        <div class="insight-card warning">
-          <div class="insight-icon flag">&#9888;</div>
-          <h3>Aidan Mattis: declining trajectory</h3>
-          <p>YouTube views down 23% from 90-day average. Sub growth slowing (+4K Nov vs +13K Apr). TikTok deactivated (was ~1.2M). Still the strongest creator in the network, but trending the wrong direction.</p>
-        </div>
-        <div class="insight-card warning">
-          <div class="insight-icon flag">&#9888;</div>
-          <h3>Deck comparisons are a stretch</h3>
-          <p>The deck uses Obsession ($17M opening), Backrooms ($81M), and Iron Lung ($18M) as comparable projects. These are fiction/horror films from internet communities, not true crime documentaries. Fine for a pitch deck, but don't use them as revenue projections.</p>
-        </div>
+      <div class="section-eyebrow">For Friday</div>
+      <h2 class="section-title">What I need from you</h2>
+      <p class="section-intro">I haven't been briefed on these yet. Some of them I can figure out with a bit more time, but the rest need your input before we can finalize anything for VN or the launch plan.</p>
+
+      <div style="max-width: 720px;">
+        <ol class="agenda-list">
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>Launch timing.</strong> I'm recommending we push to mid-February. The WHSK channels need 4-6 weeks of published content before outreach brings eyeballs. Are you open to that, or is January locked?</div></li>
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>Your profile strategy.</strong> <a href="https://instagram.com/alexfosterghostwriter" target="_blank">@alexfosterghostwriter</a> is your current IG. Do you want VN reviewing that as-is, or are you building a new investigator-branded profile for the launch?</div></li>
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>Best clip for Paul.</strong> He needs a strong 1-2 minute clip for podcast outreach (including the Howie Mandel opportunity). Which one are you sending?</div></li>
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>Episode status.</strong> How many of the 10 episodes are edit-locked? What's your planned release cadence &mdash; weekly, bi-weekly, all at once?</div></li>
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>WHSK channel branding.</strong> <a href="https://youtube.com/@wehuntserialkillers" target="_blank">YouTube</a>, <a href="https://tiktok.com/@wehuntserialkillers" target="_blank">TikTok</a>, and IG are all set up but have no art, bios, or descriptions. Who's handling that?</div></li>
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>Content pipeline.</strong> Who's cutting clips for Shorts/Reels/TikTok? Who owns the posting schedule?</div></li>
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>WHSK Instagram.</strong> It's showing as unavailable. Is it private, renamed, or not created yet?</div></li>
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>Aidan's TikTok.</strong> <a href="https://tiktok.com/@theaidanmattis" target="_blank">@theaidanmattis</a> appears deactivated (was ~1.2M). Do you know what happened? Any plan to bring it back?</div></li>
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>Kyle's Facebook page.</strong> The deck lists 456K followers but I can't locate the page. Do you have the link?</div></li>
+          <li><div class="agenda-num"></div><div class="agenda-text"><strong>Companion podcast.</strong> Is there a WHSK podcast planned alongside the YouTube series? If so, what's the format?</div></li>
+        </ol>
       </div>
     </div>
   </div>
 
-  <!-- ── FOOTER ── -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container">
-      <p class="footer-text">Prepared by <a href="https://motivecraftcollective.com">Motivecraft Collective</a> &middot; Internal use only &middot; November 25, 2026</p>
+      Prepared by <a href="https://motivecraftcollective.com">Motivecraft Collective</a> &middot; Internal working document &middot; November 25, 2026
     </div>
   </footer>
 
